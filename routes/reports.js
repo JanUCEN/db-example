@@ -20,8 +20,15 @@ router.get('/', async function (req, res, next) {
 });
 
 /* CREATE report. */
-router.post('/', function (req, res, next) {
-    res.redirect('/');
+router.post('/', async function (req, res, next) {
+    const report = await new Report({
+        title: req.body.title,
+        notes: req.body.notes,
+        location:req.body.location,
+    })
+    await report.save();
+    res.redirect('/reports');
+
 });
 
 /* UPDATE report. */
