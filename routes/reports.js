@@ -1,9 +1,22 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
+const Report = require('../models/report');
+
+
 
 /* GET reports page. */
-router.get('/', function (req, res, next) {
-    res.render('index', { title: 'Reports' });
+router.get('/', async function (req, res, next) {
+    const reports = await Report.find();
+    const data = reports.map(report=>{
+        return {
+            title:report.title,
+            location:report.location,
+            notes:report.notes,
+            date:report.date
+        }
+    });
+    console.log(data)
+    res.render('index', { title: 'Reports', data:data });
 });
 
 /* CREATE report. */
