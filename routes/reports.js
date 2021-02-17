@@ -46,8 +46,13 @@ router.get('/:id', async function (req, res, next) {
 });
 
 /* UPDATE report. */
-router.patch('/', function (req, res, next) {
-    res.redirect('/');
+router.put('/:id', async function (req, res, next) {
+    const report = await Report.findById(req.params.id);
+    report.title = req.body.title;
+    report.notes = req.body.notes;
+    report.location = req.body.location
+    await report.save();
+    res.render('index', { title: 'Report', data:report });
 });
 
 /* DELETE report. */
