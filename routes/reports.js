@@ -56,8 +56,10 @@ router.put('/:id', async function (req, res, next) {
 });
 
 /* DELETE report. */
-router.delete('/', function (req, res, next) {
-    res.redirect('/');
+router.delete('/:id', async function (req, res, next) {
+    const report = await Report.findById(req.params.id);
+    await report.remove();
+    res.redirect(303,'/reports');
 });
 
 
