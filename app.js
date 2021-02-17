@@ -7,8 +7,22 @@ var logger = require('morgan');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var reportsRouter = require('./routes/reports');
+const mongoose = require('mongoose');
 
 var app = express();
+
+
+//mongoose connection 
+mongoose.connect('mongodb://localhost:27017/police_database', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  useFindAndModify: false,
+  useCreateIndex: true
+});
+
+const db = mongoose.connection;
+db.on('error',err=>console.error(err))
+db.once('open',err=>console.log("Connected to DB"))
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
