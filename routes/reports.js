@@ -57,8 +57,7 @@ router.put('/:id', async function (req, res, next) {
 
 /* DELETE report. */
 router.delete('/:id', async function (req, res, next) {
-    const report = await Report.findById(req.params.id);
-    await report.remove();
+    await Report.deleteOne({_id:req.params.id});
     res.redirect(303,'/reports');
 });
 
