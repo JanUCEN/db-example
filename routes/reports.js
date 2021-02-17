@@ -31,6 +31,20 @@ router.post('/', async function (req, res, next) {
 
 });
 
+/* GET a single report */
+router.get('/:id', async function (req, res, next) {
+    const report = await Report.findById(req.params.id);
+    //or findOne({_id:req.params.id})
+    const data =  {
+            title:report.title,
+            location:report.location,
+            notes:report.notes,
+            date:report.date
+        }
+    console.log(data)
+    res.render('index', { title: 'Report', data:data });
+});
+
 /* UPDATE report. */
 router.patch('/', function (req, res, next) {
     res.redirect('/');
