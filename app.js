@@ -1,12 +1,12 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-var reportsRouter = require('./routes/reports');
+const indexRouter = require('./routes/index');
+const usersRouter = require('./routes/users');
+const reportsRouter = require('./routes/reports');
 const mongoose = require('mongoose');
 
 var app = express();
@@ -22,7 +22,7 @@ mongoose.connect('mongodb://localhost:27017/police_database', {
 
 const db = mongoose.connection;
 db.on('error',err=>console.error(err))
-db.once('open',err=>console.log("Connected to DB"))
+db.once('open',err=>console.log("Connected to DB"));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

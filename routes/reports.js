@@ -5,7 +5,7 @@ const Report = require('../models/report');
 
 
 /* GET reports page. */
-router.get('/', async function (req, res, next) {
+router.get('/', async function (req, res) {
     const reports = await Report.find();
     const data = reports.map(report=>{
         return {
@@ -15,12 +15,12 @@ router.get('/', async function (req, res, next) {
             date:report.date
         }
     });
-    console.log(data)
+    console.log(data);
     res.render('index', { title: 'Reports', data:data });
 });
 
 /* CREATE report. */
-router.post('/', async function (req, res, next) {
+router.post('/', async function (req, res) {
     const report = await new Report({
         title: req.body.title,
         notes: req.body.notes,
@@ -34,14 +34,12 @@ router.post('/', async function (req, res, next) {
 /* GET a single report */
 router.get('/:id', async function (req, res, next) {
     const report = await Report.findById(req.params.id);
-    //or findOne({_id:req.params.id})
     const data =  {
             title:report.title,
             location:report.location,
             notes:report.notes,
             date:report.date
         }
-    console.log(data)
     res.render('index', { title: 'Report', data:data });
 });
 
